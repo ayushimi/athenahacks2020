@@ -114,16 +114,26 @@ function initMap(position) {
   // The marker, positioned at current location
   var marker = new google.maps.Marker({position: currLoc, map: map});
   var points = [irc, pks, cap, mus, rhm, thh_outdoor, thh, jep_outdoor, nct, mrf, wph, wph_outdoor, sos, vkc, lvl, prb_outdoor, bsr, irc_outdoor, ohe_outdoor, dcc, stu_outdoor, acb_outdoor, urh, col, ptd, dml_outdoor, dmt, dxm, tro, jkp, jff, rgl, pwe, law, ahf, acc, acc_outdoor, hed, v_outdoor, asc, nbc2, mrc, ped, mhp, zhs, nbc1, stu, dni, crc, kdc, cic, uvo, mhc, eeb, den, gfs, wto, koh, sal, sgm, flt, mcb, lrc, uac, kap, prb];
-
+  var secretMessages = ["IRC", "PKS", "CAP", "MUS", "RHM", "THH (outdoors)", "THH", "JEP (outdoors)", "NCT", "MRF", "WPH", "WPH (outdoors)", "SOS", "VKC", "LVL", "PRB (outdoors)", "BSR", "IRC (outdoors)", "OHE (outdoors)", "DCC", "STU (outdoors)", "ACB (outdoors)", "URH", "COL", "PTD", "DML (outdoors)", "DMT", "DXM", "TRO", "JKP", "JFF", "RGL", "PWE", "LAW", "AHF", "ACC", "ACC (outdoors)", "HED", "Village (outdoors)", "ASC", "NBC2", "MRC", "PED", "MHP", "ZHS", "NCB1", "STU", "DNI", "CRC", "KDC", "CIC", "UVO", "MHC", "EEB", "DEN", "GFS", "WTO", "KOH", "SAL", "SGM", "FLT", "mcb", "lrc", "uac", "kap", "prb"];
   for(var i = 0; i < totalStations; i++)
   {
     var stations = new google.maps.Marker({position: points[i], icon: 'water.png', map: map});
+    attachSecretMessage(stations, secretMessages[i]);
   }
-  
-
   
   
 }
+
+function attachSecretMessage(marker, secretMessage) {
+        var infowindow = new google.maps.InfoWindow({
+          content: secretMessage
+        });
+
+        marker.addListener('click', function() {
+          infowindow.open(marker.get('map'), marker);
+        });
+
+      }
 
 getLocation();
 
